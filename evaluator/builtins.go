@@ -1,6 +1,7 @@
 package evaluator
 
 import (
+	"fmt"
 	"github/fvaloy/m-interpreter/object"
 )
 
@@ -99,6 +100,14 @@ var builtins = map[string]*object.Builtin{
 				newElements := make([]object.Object, length-1)
 				copy(newElements, arr.Elements[1:length])
 				return &object.Array{Elements: newElements}
+			}
+			return NULL
+		},
+	},
+	"puts": &object.Builtin{
+		Fn: func(args ...object.Object) object.Object {
+			for _, arg := range args {
+				fmt.Println(arg.Inspect())
 			}
 			return NULL
 		},
